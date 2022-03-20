@@ -20,11 +20,14 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), Response::HTTP_OK);
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
 
         try {
-            $user = User::create($request->all());
+            $user = User::create(array_merge(
+                $validator->validated(),
+                ['password' => bcrypt($request->input('password'))]
+            ));
 
             $response = [
                 "message" => "Transaction created",
