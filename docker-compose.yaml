@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_USER: mamikos
+      MYSQL_PASSWORD: mamikospass
+      MYSQL_ROOT_PASSWORD: mamikospassroot
+      MYSQL_DATABASE: mamikosdb
+      MYSQL_HOST: 0.0.0.0
+    ports:
+      - 0.0.0.0:3307:3306
+    volumes:
+      - './_dbdata/mysql:/var/lib/mysql'
+      - './scripts/init-db-test.sql:/docker-entrypoint-initdb.d/1.sql'
+    container_name: mysql_mamikos
