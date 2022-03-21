@@ -18,17 +18,26 @@ class AuthController extends Controller
     {
         $credentials = $request->only(['email', 'password']);
 
-        $validator = Validator::make($credentials, [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+        $validator = Validator::make(
+            array_merge($credentials, ['role' => $request->input('role')]),
+            [
+                'email' => 'required',
+                'password' => 'required',
+                'role' => 'required|in:owner,regular,premium',
+            ]
+        );
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
         }
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Invalid Email / Password'], 401);
+        }
+
+        $userRole = auth()->user()->roles()->first();
+        if ($userRole && $userRole->name == $validator->validated()['role']) {
+            return response()->json(['error' => 'Invalid User Role'], 401);
         }
 
         return $this->respondWithToken($token);

@@ -55,9 +55,7 @@ class User extends Authenticatable implements JWTSubject
         return [
             'id' => $this->id,
             'email' => $this->email,
-            'roles' => collect($this->roles->all())->map(function ($role) {
-                return $role->name;
-            }),
+            'role' => $this->roles->first() ? $this->roles->first()->name : "",
         ];
     }
 }
