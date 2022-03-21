@@ -35,9 +35,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'Invalid Email / Password'], 401);
         }
 
-        $userRole = auth()->user()->roles()->first();
-        if ($userRole && $userRole->name == $validator->validated()['role']) {
-            return response()->json(['error' => 'Invalid User Role'], 401);
+        if (auth()->payload()->get('role') != $validator->validated()['role']) {
+            return response()->json(['error' => 'Invalid user role'], 401);
         }
 
         return $this->respondWithToken($token);
