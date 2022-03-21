@@ -32,7 +32,10 @@ class UserController extends Controller
         try {
             $user = User::create(array_merge(
                 $userRequest,
-                ['password' => bcrypt($request->input('password'))]
+                [
+                    'password' => bcrypt($request->input('password')),
+                    'credit' => User::$credits[$userRole],
+                ]
             ));
 
             $user->assignRole($userRole);

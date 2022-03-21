@@ -15,6 +15,8 @@ class User extends Authenticatable implements JWTSubject
     use HasRoles;
     use HasApiTokens, HasFactory, Notifiable;
 
+    public static $credits = ['owner' => 0, 'regular' => 20, 'premium' => 40];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +26,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'credit',
     ];
 
     /**
