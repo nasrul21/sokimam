@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -16,17 +18,37 @@ class AuthController extends Controller
     {
         $credentials = $request->only(['email', 'password']);
 
-        // dd($credentials);
+        $validator = Validator::make($credentials, [
+            'email' => 'required',
+            'password' => 'required',
+        ]);
 
-
-
-        if (!$token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
 
-        Log::info("HEEYYYYYYY");
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Invalid Email / Password'], 401);
+        }
 
         return $this->respondWithToken($token);
+    }
+
+    public function me()
+    {
+        return response()->json(auth()->user());
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
     }
 
     protected function respondWithToken($token)
