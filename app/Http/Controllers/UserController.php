@@ -13,11 +13,17 @@ class UserController extends Controller
 {
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|unique:users|email',
-            'password' => 'required|min:6',
-            'name' => 'required|min:3'
-        ]);
+        $userRequest = $request->only('email', 'password', 'name');
+        $userRole = $request->input('role');
+        $validator = Validator::make(
+            array_merge($userRequest, ['role' => $userRole]),
+            [
+                'email' => 'required|unique:users|email',
+                'password' => 'required|min:6',
+                'name' => 'required|min:3',
+                'role' => 'required|in:owner,regular,premium',
+            ]
+        );
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
@@ -25,13 +31,17 @@ class UserController extends Controller
 
         try {
             $user = User::create(array_merge(
-                $validator->validated(),
+                $userRequest,
                 ['password' => bcrypt($request->input('password'))]
             ));
 
+            $user->assignRole($userRole);
+
             $response = [
-                "message" => "Transaction created",
-                "data" => $user,
+                "message" => "Register Completed",
+                "data" => [
+                    'id' => $user->id
+                ],
             ];
 
             return response()->json($response, Response::HTTP_CREATED);
@@ -40,9 +50,5 @@ class UserController extends Controller
                 "message" => $e->getMessage(),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
-
-
-        return response()->json(['message' => 'Data added successfully'], 201);
     }
 }
