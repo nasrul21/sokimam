@@ -65,12 +65,15 @@ class KostController extends Controller
 
     public function show($id)
     {
-        //
-    }
+        $kost = Kost::find($id);
 
-    public function edit($id)
-    {
-        //
+        if ($kost == null) {
+            return response()->json(['message' => 'Kost not found'], 404);
+        }
+
+        return response()->json([
+            'data' => $kost,
+        ], Response::HTTP_OK);
     }
 
     public function update(Request $request, $id)

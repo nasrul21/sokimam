@@ -24,10 +24,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post("/register", [UserController::class, 'register']);
 
+Route::group(['prefix' => 'kosts'], function () {
+    Route::get('/', [KostController::class, 'index']);
+    Route::get('/{id}', [KostController::class, 'show']);
+});
+
 Route::group([
     'middleware' => 'api',
 ], function () {
-
     Route::group(['prefix' => 'auth'], function () {
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout']);
@@ -42,7 +46,5 @@ Route::group([
             Route::put('/{id}', [KostController::class, 'update']);
             Route::delete('/{id}', [KostController::class, 'destroy']);
         });
-
-        Route::get('/', [KostController::class, 'index']);
     });
 });
