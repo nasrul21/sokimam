@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,10 +26,22 @@ Route::post("/register", [UserController::class, 'register']);
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
 ], function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/me', [AuthController::class, 'me'])->name("auth-me");
+
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/refresh', [AuthController::class, 'refresh']);
+        Route::get('/me', [AuthController::class, 'me'])->name("auth-me");
+    });
+
+    Route::group(['prefix' => 'kosts'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
+            Route::post('/', [KostController::class, 'store']);
+            Route::put('/{id}', [KostController::class, 'update']);
+            Route::delete('/{id}', [KostController::class, 'destroy']);
+        });
+
+        Route::get('/', [KostController::class, 'index']);
+    });
 });
