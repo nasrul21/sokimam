@@ -37,6 +37,7 @@ Route::group([
 
     Route::group(['prefix' => 'kosts'], function () {
         Route::group(['middleware' => 'role:owner'], function () {
+            Route::get('/me', [KostController::class, 'me']);
             Route::post('/', [KostController::class, 'store']);
             Route::put('/{id}', [KostController::class, 'update']);
             Route::delete('/{id}', [KostController::class, 'destroy']);
