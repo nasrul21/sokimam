@@ -26,6 +26,7 @@ Route::post("/register", [UserController::class, 'register']);
 
 Route::group(['prefix' => 'kosts'], function () {
     Route::get('/', [KostController::class, 'index']);
+    Route::get('/search', [KostController::class, 'search']);
     Route::get('/{id}', [KostController::class, 'show']);
 });
 

@@ -76,6 +76,47 @@ class KostController extends Controller
         ], Response::HTTP_OK);
     }
 
+    public function search(Request $request)
+    {
+        $params = $request->all();
+
+        $validator = Validator::make($params, [
+            'filter' => 'array',
+            'filter.name' => 'nullable|string',
+            'filter.location' => 'nullable|string',
+            'filter.price.min' => 'nullable|numeric|min:0',
+            'filter.price.max' => 'nullable|numeric|gt:filter.price.min',
+            'sort.price' => 'nullable|in:asc,desc',
+        ]);
+
+        try {
+            $kosts = new Kost;
+
+            $filter = $validator->validated()['filter'];
+
+            foreach ($filter as $key => $value) {
+                if ($key == "name") {
+                    $kosts = $kosts->where('title', 'LIKE', '%' . $value . '%');
+                }
+                if ($key == "location") {
+                    $kosts = $kosts->where('address', 'LIKE', '%' . $value . '%');
+                }
+                if ($key == 'price') {
+                    $min = $value['min'];
+                    $max = $value['max'];
+
+                    $kosts = $kosts->where('price', '>=', $min)->where('price', '<=', $max);
+                }
+            }
+
+            return response()->json($kosts->get(), 200);
+        } catch (QueryException $e) {
+            return response()->json([
+                "message" => $e->getMessage(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    }
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make(
