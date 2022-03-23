@@ -46,5 +46,9 @@ Route::group([
             Route::put('/{id}', [KostController::class, 'update']);
             Route::delete('/{id}', [KostController::class, 'destroy']);
         });
+
+        Route::group(['middleware' => 'permission:ask room'], function () {
+            Route::get('/{id}/available-rooms', [KostController::class, 'availableRooms']);
+        });
     });
 });

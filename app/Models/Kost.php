@@ -9,6 +9,8 @@ class Kost extends Model
 {
     use HasFactory;
 
+    public const ASK_ROOM_COST = 10;
+
     protected $fillable = [
         'title',
         'type',
@@ -16,5 +18,6 @@ class Kost extends Model
         'description',
         'price',
         'owner_id',
+        'available_room',
     ];
 }

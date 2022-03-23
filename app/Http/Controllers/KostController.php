@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kost;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -84,6 +85,7 @@ class KostController extends Controller
                 'address' => 'required|min:10',
                 'description' => 'required|min:30',
                 'price' => 'required|numeric|min:0',
+                'available_room' => 'required|numeric|min:0',
             ]
         );
 
@@ -135,6 +137,7 @@ class KostController extends Controller
                 'address' => 'required|min:10',
                 'description' => 'required|min:30',
                 'price' => 'required|numeric|min:0',
+                'available_room' => 'required|numeric|min:0',
             ]
         );
 
@@ -187,5 +190,33 @@ class KostController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         return Kost::where('owner_id', $userID)->find($id);
+    }
+
+    public function availableRooms($id)
+    {
+        $kost = Kost::find($id);
+
+        if ($kost == null) {
+            return response()->json(['message' => 'Kost not found'], 404);
+        }
+
+        $user = auth()->user();
+
+        $credit = $user->credit - Kost::ASK_ROOM_COST;
+
+        if ($credit < 0) {
+            return response()->json([
+                'message' => 'Insufficient user credit'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $user->credit = $credit;
+        $user->save();
+
+        return response()->json([
+            'data' => [
+                'count' => $kost->available_room
+            ],
+        ], Response::HTTP_OK);
     }
 }
