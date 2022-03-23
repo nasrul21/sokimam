@@ -84,8 +84,9 @@ class KostController extends Controller
             'filter' => 'array',
             'filter.name' => 'nullable|string',
             'filter.location' => 'nullable|string',
-            'filter.price.min' => 'nullable|numeric|min:0',
+            'filter.price.min' => 'present|numeric|min:0',
             'filter.price.max' => 'nullable|numeric|gt:filter.price.min',
+            'sort' => 'array',
             'sort.price' => 'nullable|in:asc,desc',
         ]);
 
@@ -102,10 +103,12 @@ class KostController extends Controller
                     $kosts = $kosts->where('address', 'LIKE', '%' . $value . '%');
                 }
                 if ($key == 'price') {
-                    $min = $value['min'];
-                    $max = $value['max'];
-
-                    $kosts = $kosts->where('price', '>=', $min)->where('price', '<=', $max);
+                    if (array_key_exists('min', $value)) {
+                        $kosts = $kosts->where('price', '>=', $value['min']);
+                    }
+                    if (array_key_exists('max', $value)) {
+                        $kosts = $kosts->where('price', '<=', $value['max']);
+                    }
                 }
             }
 
