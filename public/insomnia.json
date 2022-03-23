@@ -1,0 +1,547 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2022-03-23T10:05:06.550Z",
+  "__export_source": "insomnia.desktop.app:v2022.2.0",
+  "resources": [
+    {
+      "_id": "req_67029c85571e47fa8b768e9e4700a543",
+      "parentId": "fld_d3b2e36c2c5547089fe6d1a018247396",
+      "modified": 1648028334013,
+      "created": 1647698898965,
+      "url": "{{ _.base_url }}/api/register",
+      "name": "Register",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"aku@kamu.com\",\n\t\"password\": \"terserahguelah\",\n\t\"name\": \"aku kamu\",\n\t\"role\": \"premium\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_24d52490b54b4666b1f20a3dea409056"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1647747084721,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_d3b2e36c2c5547089fe6d1a018247396",
+      "parentId": "wrk_1c8c804e1c564e7b921b49714d3037a0",
+      "modified": 1647874292710,
+      "created": 1647874292710,
+      "name": "Auth",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1647874292710,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_1c8c804e1c564e7b921b49714d3037a0",
+      "parentId": null,
+      "modified": 1647698886416,
+      "created": 1647698886416,
+      "name": "BackEnd-Test",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_65946fb285fc46eb903f644780b7bc1e",
+      "parentId": "fld_d3b2e36c2c5547089fe6d1a018247396",
+      "modified": 1648028335388,
+      "created": 1647747084771,
+      "url": "{{ _.base_url }}/api/auth/login",
+      "name": "Login",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"nasrul@efishery.com\",\n\t\"password\": \"terserahguelah\",\n\t\"role\": \"premium\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_805bff0d257544dcb830dae9b0746b8a"
+        },
+        {
+          "id": "pair_9c8cb15cb8634dca949255bd35f839fc",
+          "name": "Accept",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1647747084771,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_785dd440d82e4f309dc48c178643d495",
+      "parentId": "fld_d3b2e36c2c5547089fe6d1a018247396",
+      "modified": 1648028337265,
+      "created": 1647874302125,
+      "url": "{{ _.base_url }}/api/auth/me",
+      "name": "Me",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_41d1687811e944dd995bb85a9a375cba",
+          "name": "Accept",
+          "value": "application/json",
+          "description": "",
+          "disabled": true
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1647874302125,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_1d45a46473b24324966e10346e88818d",
+      "parentId": "fld_d3b2e36c2c5547089fe6d1a018247396",
+      "modified": 1648028735409,
+      "created": 1647875738198,
+      "url": "{{ _.base_url }}/api/auth/logout",
+      "name": "Logout",
+      "description": "",
+      "method": "POST",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1647875738198,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_35b64117f5e649188fad239a8e186d3f",
+      "parentId": "fld_d3b2e36c2c5547089fe6d1a018247396",
+      "modified": 1648028745457,
+      "created": 1647876610337,
+      "url": "{{ _.base_url }}/api/auth/refresh",
+      "name": "Refresh",
+      "description": "",
+      "method": "POST",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1647876610337,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_231436d5a60c43bd9847aa5a81dd49ad",
+      "parentId": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "modified": 1648028373348,
+      "created": 1647943112069,
+      "url": "{{ _.base_url }}/api/kosts?per_page=10",
+      "name": "All Kost",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}",
+        "disabled": true
+      },
+      "metaSortKey": -1647943112069,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "parentId": "wrk_1c8c804e1c564e7b921b49714d3037a0",
+      "modified": 1647943099790,
+      "created": 1647943099790,
+      "name": "Kosts",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1647943099790,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_a128bf70f77b4abe99960863967168b9",
+      "parentId": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "modified": 1648028376916,
+      "created": 1647949684046,
+      "url": "{{ _.base_url }}/api/kosts",
+      "name": "Create Kost",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"title\": \"Kost Campur Sari\",\n\t\"type\": \"campur\",\n\t\"address\": \"Jl. Nasional 101 Ciawi Tasikmalaya\",\n\t\"description\": \"Kost campur khusus karyawan/ti, dekat dengan pusat perbelanjaan\",\n\t\"price\": \"600000\",\n\t\"available_room\": 5\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_f0c287f3f14f4ffe8d4686c80761fc22"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1647949684046,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_9fe45c491d324ae694b8af51f0a3487e",
+      "parentId": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "modified": 1648028375222,
+      "created": 1647953067681,
+      "url": "{{ _.base_url }}/api/kosts/1",
+      "name": "Update Kost",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"title\": \"Kost Muslim Jannah 1\",\n\t\"type\": \"putra\",\n\t\"address\": \"Jl. Pakemitan No 12 Ciawi Tasikmalaya\",\n\t\"description\": \"Khusus putra, dekat dengan mesjid agung ciawi\",\n\t\"price\": \"500000\",\n\t\"available_room\": 6\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_f0c287f3f14f4ffe8d4686c80761fc22"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1647946398057.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5638753c675a4577a5fca0799a08b441",
+      "parentId": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "modified": 1648028378081,
+      "created": 1647953896570,
+      "url": "{{ _.base_url }}/api/kosts/3",
+      "name": "Delete Kost",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1647953896570,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_62edd8e6a1a84b3790352c4c63190093",
+      "parentId": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "modified": 1648029774094,
+      "created": 1647956476207,
+      "url": "{{ _.base_url }}/api/kosts?per_page=10",
+      "name": "My Kost",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1647909861203,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_072421d89f6144649c95aeaf1992efcb",
+      "parentId": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "modified": 1648025875841,
+      "created": 1647957321604,
+      "url": "{{ _.base_url }}/api/kosts/1",
+      "name": "Detail Kost",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1647957321604,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_e214dc04b0414aaba6e73ac2e364e276",
+      "parentId": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "modified": 1648011070634,
+      "created": 1648001420424,
+      "url": "{{ _.base_url }}/api/kosts",
+      "name": "Search",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_013c72f1511b4e00ae1dfc4def4103ed",
+          "name": "filter[name]",
+          "value": "muslim",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_e55517ab51044576b9453fd00f2117f9",
+          "name": "filter[location]",
+          "value": "ciawi",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_c249da4803b7462f9965f49b23a3eca3",
+          "name": "filter[price][min]",
+          "value": "400000",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_b42563800cf840e9895bba2bcb5cfa66",
+          "name": "filter[price][max]",
+          "value": "500000",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_0f118187cd4b44aab885c27f74acdf8f",
+          "name": "sort[price]",
+          "value": "asc",
+          "description": "",
+          "disabled": false
+        },
+        {
+          "id": "pair_be96d0cc52384efda89a65cdb3f8b213",
+          "name": "per_page",
+          "value": "2",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1648001420424,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b83832227cf746aa9db5f9f995da21b2",
+      "parentId": "fld_71fc0502677f48f689548f1dd2d1905f",
+      "modified": 1648029774364,
+      "created": 1648027659402,
+      "url": "{{ _.base_url }}/api/kosts/1/available-rooms",
+      "name": "Available Room",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1648027659402,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_a5a947946cb8033e37a307031e0abd2e1ff7e09c",
+      "parentId": "wrk_1c8c804e1c564e7b921b49714d3037a0",
+      "modified": 1647943078700,
+      "created": 1647698886435,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": {},
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1647698886435,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_a5a947946cb8033e37a307031e0abd2e1ff7e09c",
+      "parentId": "wrk_1c8c804e1c564e7b921b49714d3037a0",
+      "modified": 1647699872631,
+      "created": 1647698886439,
+      "name": "Default Jar",
+      "cookies": [
+        {
+          "key": "XSRF-TOKEN",
+          "value": "eyJpdiI6Inhic3FFVHYrcXBod2dOVEx6RzdhRVE9PSIsInZhbHVlIjoiQnNZd1VMNTFvS0pCYnBiYmhlUnFLZStWYS9IVlE2YlVWT1JkTHRkdUU4L0o2VVFCYklCL0lDajNpVUZURFhTUGRtZUhDMURwdDFXdGxuQ0RLQmt1QWdqc2FEZkJ1alNqd0lCODhPM3hqM2JSdlAvTk5WdHdTNVg5c2hZYVoyVXoiLCJtYWMiOiIwOGUzMWJmMDBiNzI3YWU4NDdkNzdhNzRhNDQ0MWM0NzFkMjA0ZGRiYWQ1MjI1M2RmNWE0NDYyYjE0YjNhYmI0IiwidGFnIjoiIn0%3D",
+          "expires": "2022-03-19T16:24:32.000Z",
+          "maxAge": 7200,
+          "domain": "localhost",
+          "path": "/",
+          "extensions": [
+            "samesite=lax"
+          ],
+          "hostOnly": true,
+          "creation": "2022-03-19T14:10:12.384Z",
+          "lastAccessed": "2022-03-19T14:24:32.631Z",
+          "id": "9208676593525935"
+        },
+        {
+          "key": "laravel_session",
+          "value": "eyJpdiI6InBjU281dEJWOThSUUp5VURsb3dBTVE9PSIsInZhbHVlIjoienpxeDZxN21od2o4YUEwanlMOGtUTlQ3RTBZVXdTLzI0WDJNTldaS2VqVCsyM3IvNktTNDQ3dUpiYjZlY0gyZGlQNWJwdExJNUV2TDIyWDV2aTN5Zy9udXhpYk5JQ3RkUk5YYTVrTVNOeHQwUStaZWJMK20yM2NJcHg3bXlaVDYiLCJtYWMiOiI0MjU4MDQzNzE1Nzg1MDkyMzhlNTJmOGFhNGY3YjJlMzYzNmRhYjViNWJkMGU1NTZlNmI3MDg3ZWQ5MmE3NWZkIiwidGFnIjoiIn0%3D",
+          "expires": "2022-03-19T16:24:32.000Z",
+          "maxAge": 7200,
+          "domain": "localhost",
+          "path": "/",
+          "httpOnly": true,
+          "extensions": [
+            "samesite=lax"
+          ],
+          "hostOnly": true,
+          "creation": "2022-03-19T14:10:12.385Z",
+          "lastAccessed": "2022-03-19T14:24:32.631Z",
+          "id": "2808858163848167"
+        }
+      ],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_849383a2bde14267b04c5f44db5b51b1",
+      "parentId": "wrk_1c8c804e1c564e7b921b49714d3037a0",
+      "modified": 1647698886421,
+      "created": 1647698886421,
+      "fileName": "BackEnd-Test",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_09aefc7fce1947fb8d85c0c4a0871ad7",
+      "parentId": "env_a5a947946cb8033e37a307031e0abd2e1ff7e09c",
+      "modified": 1648027752345,
+      "created": 1647943066049,
+      "name": "Mamikos",
+      "data": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE2NDgwMjc3MzQsImV4cCI6MTY0ODAzMTMzNCwibmJmIjoxNjQ4MDI3NzM0LCJqdGkiOiJiR09yZjB4UVhlUGdVSFFCIiwic3ViIjoyLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwiaWQiOjIsImVtYWlsIjoibmFzcnVsQGVmaXNoZXJ5LmNvbSIsInJvbGUiOiJwcmVtaXVtIn0.E5VkYY_zuPG2CJEdWYxWydfw-fKAV8N4nOHg8lX6E-o",
+        "base_url": "localhost:8000"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "token",
+          "base_url"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1647943066049,
+      "_type": "environment"
+    }
+  ]
+}
