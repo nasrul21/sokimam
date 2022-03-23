@@ -13,8 +13,57 @@ class KostController extends Controller
     public function index(Request $request)
     {
         $per_page = $request->query('per_page', 10);
-        $kosts = Kost::query()->paginate($per_page);
-        return response()->json($kosts, Response::HTTP_OK);
+        $validator = Validator::make($request->all(), [
+            'filter' => 'array',
+            'filter.name' => 'nullable|string',
+            'filter.location' => 'nullable|string',
+            'filter.price.min' => 'nullable|numeric|min:0',
+            'filter.price.max' => 'nullable|numeric|min:0',
+            'sort' => 'array',
+            'sort.price' => 'nullable|in:asc,desc',
+        ]);
+
+        try {
+            $kosts = new Kost;
+
+            $params = $validator->validated();
+
+            if (array_key_exists('filter', $params)) {
+                foreach ($params['filter'] as $key => $value) {
+                    if ($key == "name") {
+                        $kosts = $kosts->where('title', 'LIKE', '%' . $value . '%');
+                    }
+                    if ($key == "location") {
+                        $kosts = $kosts->where('address', 'LIKE', '%' . $value . '%');
+                    }
+                    if ($key == 'price') {
+                        if (array_key_exists('min', $value)) {
+                            $kosts = $kosts->where('price', '>=', $value['min']);
+                        }
+                        if (array_key_exists('max', $value)) {
+                            $kosts = $kosts->where('price', '<=', $value['max']);
+                        }
+                    }
+                }
+            }
+
+            if (array_key_exists('sort', $params)) {
+                if (array_key_exists('price', $params['sort'])) {
+                    if ($params['sort']['price'] == 'desc') {
+                        $kosts = $kosts->orderByDesc('price');
+                    } else if ($params['sort']['price'] == 'asc') {
+                        $kosts = $kosts->orderBy('price');
+                    }
+                }
+            }
+
+            $kosts = $kosts->paginate($per_page);
+            return response()->json($kosts, Response::HTTP_OK);
+        } catch (QueryException $e) {
+            return response()->json([
+                "message" => $e->getMessage(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     public function me(Request $request)
@@ -74,50 +123,6 @@ class KostController extends Controller
         return response()->json([
             'data' => $kost,
         ], Response::HTTP_OK);
-    }
-
-    public function search(Request $request)
-    {
-        $params = $request->all();
-
-        $validator = Validator::make($params, [
-            'filter' => 'array',
-            'filter.name' => 'nullable|string',
-            'filter.location' => 'nullable|string',
-            'filter.price.min' => 'present|numeric|min:0',
-            'filter.price.max' => 'nullable|numeric|gt:filter.price.min',
-            'sort' => 'array',
-            'sort.price' => 'nullable|in:asc,desc',
-        ]);
-
-        try {
-            $kosts = new Kost;
-
-            $filter = $validator->validated()['filter'];
-
-            foreach ($filter as $key => $value) {
-                if ($key == "name") {
-                    $kosts = $kosts->where('title', 'LIKE', '%' . $value . '%');
-                }
-                if ($key == "location") {
-                    $kosts = $kosts->where('address', 'LIKE', '%' . $value . '%');
-                }
-                if ($key == 'price') {
-                    if (array_key_exists('min', $value)) {
-                        $kosts = $kosts->where('price', '>=', $value['min']);
-                    }
-                    if (array_key_exists('max', $value)) {
-                        $kosts = $kosts->where('price', '<=', $value['max']);
-                    }
-                }
-            }
-
-            return response()->json($kosts->get(), 200);
-        } catch (QueryException $e) {
-            return response()->json([
-                "message" => $e->getMessage(),
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
     }
 
     public function update(Request $request, $id)
